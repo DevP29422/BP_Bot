@@ -39,6 +39,6 @@ async def whois(ctx, user):
         await bot.say(embed=embed)
     except:
         bot.say('An error occurred')
-    
+
 
 bot.run(os.getenv('TOKEN'))

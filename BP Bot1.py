@@ -26,7 +26,7 @@ async def whois(ctx, user):
     u_groups = data["NumGroups"]
     u_net = data["NetWorth"]
     #############################################################################
-        embed = discord.Embed(title="{}'s Information".format(user), description = "This is all I can find!", color=0x00ff00)
+    embed = discord.Embed(title="{}'s Information".format(user), description = "This is all I can find!", color=0x00ff00)
     embed.add_field(name="Username:", value=u_name, inline=True)
     embed.add_field(name="ID:", value=u_ID, inline=True)
     embed.add_field(name="Forum Posts:", value=u_fp, inline=True)

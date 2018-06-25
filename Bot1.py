@@ -6,8 +6,13 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 bot = commands.Bot(command_prefix = '-')
 
+bot.traders = []
 
 TOKEN=os.environ['BOT_TOKEN']
+
+@bot.event
+async def on_connect():
+    bot.say("Hello Users! Welcome to the version 1.2. In this update trading options are fianlly here. type -help for more information.)
 
 @bot.event
 async def on_ready():
@@ -32,14 +37,12 @@ async def whois(ctx, user):
         if u_sus == 0:
             u_sus = ":x:"
         else:
-            u_sus="::white_check_mark:"
+            u_sus=":white_check_mark:"
         u_admin = data["isAdmin"]
         if u_admin == 1:
             u_admin = ":white_check_mark:"
         else:
             u_admin=":x:"
-
-        
         #############################################################################
         embed = discord.Embed(title="{}'s Information".format(u_name), description = "This is all I can find!", color=0x00ff00)
         embed.add_field(name="Username:", value=u_name, inline=True)
@@ -57,6 +60,20 @@ async def whois(ctx, user):
         await bot.say(embed=embed)
     except:
         bot.say('An error occurred')
+@bot.command(pass_context=True)
+async def betrader(ctx, user):
+    author = str(ctx.message.author)
+    server = ctx.message.server.name
+    u_add = ("**- BP: **__" +user+ "  __** Discord: ** "+author+ " **From server** "+server)
+    bot.traders.append(u_add)
+    await bot.say('***User added to the list***')
+    
 
+@bot.command(pass_context=True)
+async def seektraders(ctx):
+    embed = discord.Embed(title="Current users wanting to trade", description = "Not all usernames are vaild, cuz people LOVE trolling", color=0x00ff00)
+    for i in range(len(bot.traders)):
+        embed.add_field(name="User {}: ".format(i), value=bot.traders[i], inline=True)
+    await bot.say(embed=embed)
 
 bot.run(TOKEN)

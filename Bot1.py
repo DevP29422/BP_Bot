@@ -12,7 +12,7 @@ TOKEN=os.environ['BOT_TOKEN']
 
 @bot.event
 async def on_connect():
-    bot.say("Hello Users! Welcome to the version 1.2. In this update trading options are fianlly here. type -help for more information.)
+    bot.say("Hello Users! Welcome to the version 1.2. In this update trading options are fianlly here. type -help for more information.")
 
 @bot.event
 async def on_ready():

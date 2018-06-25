@@ -1,1 +1,1 @@
-worker; BP Bot1.py
+worker: BP Bot1.py

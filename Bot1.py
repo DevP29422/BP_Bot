@@ -8,6 +8,7 @@ bot = commands.Bot(command_prefix = '-')
 
 
 TOKEN=os.environ['BOT_TOKEN']
+bot.traders = []
 
 @bot.event
 async def on_ready():

@@ -17,27 +17,37 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 @bot.command(pass_context=True)
-async def whois(ctx, user):
+async def whois(ctx,user):
     try:
-        data = requests.get("https://www.brickplanet.com/web-api/users/get-user/"+user).json()
+        data = requests.get("https://www.brickplanet.com/web-api/users/get-user/"+str(user)).json()
         u_name = data["Username"]
         u_ID = data["ID"]
         u_fp = data["ForumPosts"]
         thumb = data["AvatarImage"]
         u_status = data["Status"]
-        u_about = data["About"]
         u_frds = data["NumFriends"]
         u_groups = data["NumGroups"]
         u_net = data["NetWorth"]         
         u_sus = data["Suspended"]
 
-#User Suspension check 
+
+
+
+
+
+    #checks user stattus which was giving usless bugs
+        if u_status == None:
+            u_status = "```No Status```"
+        if u_net == None:
+            u_net = ':octagonal_sign: ' + "N/A"
+
+    #User Suspension check 
         if u_sus == 0:
             u_sus = ":x:"
         else:
             u_sus="::white_check_mark:"
         u_admin = data["isAdmin"]
-#User Admin Check
+    #User Admin Check
         if u_admin == 1:
             u_admin = ":white_check_mark:"
 
@@ -45,18 +55,18 @@ async def whois(ctx, user):
             u_admin=":x:"
 
             
-#User verification name check            
+    #User verification name check            
         u_verify = data["VerifiedUser"]
         if u_verify == 1:
             u_name = data["Username"] + ' :ballot_box_with_check: '
-#User Admin name check
+    #User Admin name check
         if u_admin ==':white_check_mark:':
             u_name = data["Username"] + '<:BPAdmin:461200993309425666>'
 
         if u_admin == ':white_check_mark:':
             if u_verify == 1:
                 u_name = data["Username"] + '<:BPAdmin:461200993309425666>' +'<:Ver1:461208517760778272>'
-#My name check
+    #My name check
         if u_name == 'devthegamer23':
             u_name = data["Username"] + ':tools:'
             
@@ -73,9 +83,10 @@ async def whois(ctx, user):
         embed.set_thumbnail(url="https://cdn.brickplanet.com/"+thumb+".png")
         embed.set_footer(text='~Made by: https://www.brickplanet.com/users/devthegamer23')
         await bot.say(embed=embed)
-        
     except:
-        await bot.say('An error occurred')
+        await bot.say("An error occured")
+
+    
 
 ################################################
 @bot.command(pass_context=True)
